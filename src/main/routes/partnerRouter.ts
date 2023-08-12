@@ -3,13 +3,10 @@ import { PartnerController } from '../controllers/PartnerController';
 
 const userRouter = Router();
 
-userRouter
-  .route('/')
-  .post(PartnerController.create)
-  .get(PartnerController.findClosest);
+userRouter.route('/partner/').post(PartnerController.create);
 
-userRouter
-  .route('/:partnerId')
-  .get(PartnerController.findById);
+userRouter.route('/partner/nearest').get(PartnerController.findNearest);
+
+userRouter.route('/partner/:partnerId').get(PartnerController.findById);
 
 export { userRouter };

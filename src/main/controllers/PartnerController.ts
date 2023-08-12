@@ -1,13 +1,16 @@
 import { Request, Response } from 'express';
 import { createPartnerFactory } from '../../services/user/createPartnerUseCase/createPartnerFactory';
-import { findClosestPartnerFactory } from '../../services/user/findClosestPartnerUseCase/findClosestPartnerFactory';
+import { findNearestPartnerFactory } from '../../services/user/findNearestPartnerUseCase/findNearestPartnerFactory';
 import { findByPartnerIdFactory } from '../../services/user/findByPartnerIdUseCase/findByPartnerIdFactory';
 
 export class PartnerController {
   static async create(request: Request, response: Response): Promise<Response> {
     try {
       const partner = request.body;
-      delete partner.id, partner.createdAt, partner.updatedAt, partner.deletedAt;
+      delete partner.id,
+        partner.createdAt,
+        partner.updatedAt,
+        partner.deletedAt;
 
       const useCase = createPartnerFactory();
       const createdPartner = await useCase.create(partner).catch((error) => {
@@ -20,16 +23,16 @@ export class PartnerController {
     }
   }
 
-  static async findClosest(
+  static async findNearest(
     request: Request,
     response: Response
   ): Promise<Response> {
     try {
-      const { userLat, userLong } = request.query;
+      const { userLat, userLon } = request.query;
 
-      const useCase = findClosestPartnerFactory();
+      const useCase = findNearestPartnerFactory();
       const foundPartners = await useCase
-        .findClosest([Number(userLat), Number(userLong)])
+        .findNearest([Number(userLat), Number(userLon)])
         .catch((error: any) => {
           throw new Error(error);
         });
@@ -48,9 +51,11 @@ export class PartnerController {
       const { partnerId } = request.params;
 
       const useCase = findByPartnerIdFactory();
-      const foundPartner = await useCase.findById(partnerId).catch((error: any) => {
-        throw new Error(error);
-      });
+      const foundPartner = await useCase
+        .findById(partnerId)
+        .catch((error: any) => {
+          throw new Error(error);
+        });
 
       return response.status(200).send(foundPartner);
     } catch (error: any) {
