@@ -1,5 +1,6 @@
 import { IPartnerRepository } from '../../../domain/data/partnerRepository.protocols';
 import { Partner } from '../../../domain/models/partner';
+import { PartnerServiceError } from '../PartnerServiceError';
 
 export class FindByPartnerIdUseCase {
   constructor(
@@ -10,11 +11,11 @@ export class FindByPartnerIdUseCase {
     const foundPartner = await this.userRepository
       .findById(userId)
       .catch(() => {
-        throw new Error('Partner not found');
+        throw new Error(PartnerServiceError.NOT_FOUND);
       });
 
     if (!foundPartner) {
-      throw new Error('Partner not found');
+      throw new Error(PartnerServiceError.NOT_FOUND);
     }
 
     return foundPartner;

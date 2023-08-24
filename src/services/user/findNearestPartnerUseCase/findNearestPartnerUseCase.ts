@@ -1,5 +1,6 @@
 import { IPartnerRepository } from '../../../domain/data/partnerRepository.protocols';
 import { Partner } from '../../../domain/models/partner';
+import { PartnerServiceError } from '../PartnerServiceError';
 import { point, multiPolygon } from '@turf/helpers';
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 import distance from '@turf/distance';
@@ -11,8 +12,10 @@ export class FindNearestPartnerUseCase {
 
   async findNearest(userLocation: number[]): Promise<Partner> {
     const foundPartners = await this.userRepository.findAll().catch(() => {
-      throw new Error('No users found');
+      throw new Error(PartnerServiceError.NOT_FOUND);
     });
+
+    if (!foundPartners) throw new Error(PartnerServiceError.NOT_FOUND);
 
     const userPoint = point(userLocation);
     const partnersDistance = [] as number[];
@@ -34,8 +37,9 @@ export class FindNearestPartnerUseCase {
       } else return false;
     });
 
-    const nearestPartnerIndex = partnersDistance.reduce(
-      (accumulator, current, index, array) => {
+    if (!partnersInArea) throw new Error(PartnerServiceError.NOT_FOUND);
+
+    const nearestPartnerIndex = partnersDistance.reduce((accumulator, current, index, array) => {
         return current < array[accumulator] ? index : accumulator;
       }
     );
