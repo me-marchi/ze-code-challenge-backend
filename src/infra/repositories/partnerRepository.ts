@@ -1,22 +1,25 @@
 import { Partner } from '../../domain/models/partner';
 import { PartnerEntity } from '../entities/partnerEntity';
 import { IPartnerRepository } from '../../domain/data/partnerRepository.protocols';
-import { dataSource } from '../database/dataSource';
+import { TypeOrmHelper } from '../database/typeORMHelper';
 
 export class PartnerRepository implements IPartnerRepository {
 
   async create(partnerDTO: Partial<Partner>): Promise<Partner> {
-    const result = await dataSource.manager.save(PartnerEntity, partnerDTO);
+    const connection = await TypeOrmHelper.connect();
+    const result = await connection.getRepository(PartnerEntity).save(partnerDTO);
     return result;
   }
 
   async findAll(): Promise<Partner[]> {
-    const result = await dataSource.manager.find(PartnerEntity);
+    const connection = await TypeOrmHelper.connect();
+    const result = await connection.getRepository(PartnerEntity).find();
     return result;
   }
 
   async findById(partnerId: string): Promise<Partner | null> {
-    const result = await dataSource.manager.findOne(PartnerEntity, { where: { id: Number(partnerId) }});
+    const connection = await TypeOrmHelper.connect();
+    const result = await connection.getRepository(PartnerEntity).findOne({ where: { id: Number(partnerId) }});
     return result;
   }
 }

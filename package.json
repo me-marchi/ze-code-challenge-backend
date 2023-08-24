@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/main/server.js",
-    "start:dev": "ts-node-dev --transpile-only src/main/server.ts"
+    "start:dev": "ts-node-dev --transpile-only src/main/server.ts",
+    "seed": "ts-node-dev src/infra/database/seed/seed.ts"
   },
   "keywords": [],
   "author": "",
