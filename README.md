@@ -1,99 +1,115 @@
-# API CRUD de Usuários - TypeScript + MongoDB + Mongoose
+# Zé Delivery Code Challenge - Back-end
 
-O seguinte projeto é uma API de usuários escrita na linguagem TypeScript, utilizando o banco MongoDB e a biblioteca Mongoose. Para a realização do mesmo foram utilizados padrões de boas práticas de programação e organização de código, assim como Clean Code, Domain-Driven Design (DDD), Conventional Commits, etc. 
+This API is a attempt to solve the [back-end challenge of Ze Delivery](https://github.com/ZXVentures/ze-code-challenges/blob/master/backend.md). Its main purposes are to create, find a partner by its id and find nearest partner for the given latitude and longitude.
 
-## 🚀 Começando
+The project is written in TypeScript, and uses PostgreSQL as database, with the help of TypeORM library. It also uses Turf library functions to do the necessary manipulations of GeoJSON data.
 
-Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
+## 📌 API
 
-Consulte **[Implantação](#-implanta%C3%A7%C3%A3o)** para saber como implantar o projeto.
+The partners are represented in the following JSON format, in which the address is a GeoJSON Point, and the coverageArea is a GeoJSON Multipolygon.
 
-### 📋 Pré-requisitos
-
-De que coisas você precisa para instalar o software e como instalá-lo?
-
-```
-Dar exemplos
-```
-
-### 🔧 Instalação
-
-Uma série de exemplos passo-a-passo que informam o que você deve executar para ter um ambiente de desenvolvimento em execução.
-
-Diga como essa etapa será:
-
-```
-Dar exemplos
-```
-
-E repita:
-
-```
-Até finalizar
+```json
+{
+  "id": 1, 
+  "tradingName": "Adega da Cerveja - Pinheiros",
+  "ownerName": "Zé da Silva",
+  "document": "1432132123891/0001",
+  "coverageArea": { 
+    "type": "MultiPolygon", 
+    "coordinates": [
+      [[[30, 20], [45, 40], [10, 40], [30, 20]]], 
+      [[[15, 5], [40, 10], [10, 20], [5, 10], [15, 5]]]
+    ]
+  },
+  "address": { 
+    "type": "Point",
+    "coordinates": [-46.57421, -21.785741]
+  }
+}
 ```
 
-Termine com um exemplo de como obter dados do sistema ou como usá-los para uma pequena demonstração.
+- `/partner POST`
 
-## ⚙️ Executando os testes
+Creates new partner in database.
 
-Explicar como executar os testes automatizados para este sistema.
+- `/partner/nearest GET`
 
-### 🔩 Analise os testes de ponta a ponta
+Finds nearest partner which the coverage area includes the location of the user, mesured by latitude and longitude
 
-Explique que eles verificam esses testes e porquê.
+Query:
 
-```
-Dar exemplos
-```
-
-### ⌨️ E testes de estilo de codificação
-
-Explique que eles verificam esses testes e porquê.
-
-```
-Dar exemplos
+```json
+{
+  "userLat": 1,
+  "userLon": 1
+}
 ```
 
-## 📦 Implantação
+- `/partner/:id GET`
 
-Adicione notas adicionais sobre como implantar isso em um sistema ativo
+Finds a partner by its id.
 
-## 🛠️ Construído com
+## 🚀 Getting Started
+Follow the instructions to get a copy of this project in your local environment to develop and test.
 
-Mencione as ferramentas que você usou para criar seu projeto
+### 📋 Pre-requisites
+To run the project you will need:
+- [Docker](https://docker.com) version 17 or higher
+- [docker-compose](https://github.com/docker/compose) version 1.10 or higher
+- [Node.js](https://nodejs.org) version 13.0 or higher
+- [MongoDB](https://www.mongodb.com/) version 4.2 or higher
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - O framework web usado
-* [Maven](https://maven.apache.org/) - Gerente de Dependência
-* [ROME](https://rometools.github.io/rome/) - Usada para gerar RSS
+### 🔧 Installing Dependencies
+Clone this repo:
+```sh
+git clone https://github.com/me-marchi/ze-code-challenge-backend
+```
 
-## 🖇️ Colaborando
+Install npm
+```sh
+npm install -g 
+```
 
-Por favor, leia o [COLABORACAO.md](https://gist.github.com/usuario/linkParaInfoSobreContribuicoes) para obter detalhes sobre o nosso código de conduta e o processo para nos enviar pedidos de solicitação.
+Install projects dependencies:
+```sh
+npm i
+```
 
-## 📌 Versão
+### ⚙️ Environment
+Create a .env file and set your local environment variables:
+```sh
+cp .env-example .env
+```
 
-Nós usamos [SemVer](http://semver.org/) para controle de versão. Para as versões disponíveis, observe as [tags neste repositório](https://github.com/suas/tags/do/projeto). 
+Create docker container
+```bash
+docker-compose up -d
+```
 
-## ✒️ Autores
+### 🎲 Database
+To seed database:
+```sh
+yarn database:seed
+```
 
-Mencione todos aqueles que ajudaram a levantar o projeto desde o seu início
+### 🔩 Test
+Create the file .env.test using.
+```sh
+cp .env-example .env.test
+```
+It's important to set another database to make tests. If your database do not use auth, delete the  authentication variables as the .env file:
 
-* **Um desenvolvedor** - *Trabalho Inicial* - [umdesenvolvedor](https://github.com/linkParaPerfil)
-* **Fulano De Tal** - *Documentação* - [fulanodetal](https://github.com/linkParaPerfil)
+You can run tests using:
+```sh
+npm run test 
+```
+or with coverage
+```sh
+npm run test:coverage
+```
 
-Você também pode ver a lista de todos os [colaboradores](https://github.com/usuario/projeto/colaboradores) que participaram deste projeto.
-
-## 📄 Licença
-
-Este projeto está sob a licença (sua licença) - veja o arquivo [LICENSE.md](https://github.com/usuario/projeto/licenca) para detalhes.
-
-## 🎁 Expressões de gratidão
-
-* Conte a outras pessoas sobre este projeto 📢;
-* Convide alguém da equipe para uma cerveja 🍺;
-* Um agradecimento publicamente 🫂;
-* etc.
-
-
----
-⌨️ com ❤️ por [Armstrong Lohãns](https://gist.github.com/lohhans) 😊
+## 🛠️ Running
+After config, to run application:
+```sh
+npm run start:dev
+```
