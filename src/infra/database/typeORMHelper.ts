@@ -3,11 +3,6 @@ import { DataSource } from 'typeorm';
 import { PartnerEntity } from '../../infra/entities/partnerEntity';
 
 export class TypeOrmHelper {
-	// private static entities: any[] = [];
-
-	// static setupEntities(entities: any[]): void {
-	// 	this.entities = [...this.entities, ...entities];
-	// }
 
 	static async connect(): Promise<DataSource> {
 		try {
@@ -25,9 +20,7 @@ export class TypeOrmHelper {
 			});
 			
 			if (!dataSource.isInitialized) {
-				await dataSource.initialize().then(() => {
-					console.log('Data Source has been initialized');
-				}).catch((error) => {
+				await dataSource.initialize().catch((error) => {
 					throw new Error(error);
 				});
 			} 
