@@ -1,5 +1,5 @@
 {
-  "name": "user-api-typescript-mongodb",
+  "name": "ze-delivery-code-challenge-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,13 +7,21 @@
     "build": "tsc",
     "start": "node dist/main/server.js",
     "start:dev": "ts-node-dev --transpile-only src/main/server.ts",
-    "seed": "ts-node-dev src/infra/database/seed/seed.ts"
+    "database:seed": "ts-node-dev src/infra/database/seed/seed.ts",
+    "test": "set NODE_ENV=jest && jest --passWithNoTests --silent --noStackTrace --runInBand -—no-cache",
+    "test:verbose": "NODE_ENV=jest jest --passWithNoTests --runInBand",
+    "test:unit": "set NODE_ENV=jest && npm test -- --watch -c jest.unit.config.js",
+    "test:integration": "NODE_ENV=jest npm test -- --watch -c jest.integration.config.js",
+    "test:staged": "NODE_ENV=jest npm test -- --findRelatedTests",
+    "test:ci": "NODE_ENV=jest npm test -- --coverage --no-cache",
+    "test:clearcache": "NODE_ENV=jest npm test -- --clearCache"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^4.17.15",
+    "@types/jest": "^29.5.4",
     "@types/node": "^18.11.18",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
@@ -23,6 +31,10 @@
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-n": "^15.0.0",
     "eslint-plugin-promise": "^6.0.0",
+    "jest": "^29.6.4",
+    "joi": "^17.6.0",
+    "supertest": "^6.3.3",
+    "ts-jest": "^27.1.4",
     "ts-node-dev": "^2.0.0",
     "typescript": "^4.9.5",
     "uuid": "^9.0.0"
@@ -33,7 +45,6 @@
     "@turf/helpers": "^6.5.0",
     "@turf/nearest-point": "^6.5.0",
     "express": "^4.18.2",
-    "make": "^0.0.0",
     "pg": "^8.11.1",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.3.17"

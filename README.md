@@ -6,6 +6,8 @@ The project is written in TypeScript, and uses PostgreSQL as database, with the 
 
 ## 📌 API
 
+### Partner
+
 The partners are represented in the following JSON format, in which the address is a GeoJSON Point, and the coverageArea is a GeoJSON Multipolygon.
 
 ```json
@@ -28,6 +30,8 @@ The partners are represented in the following JSON format, in which the address 
 }
 ```
 
+### Routes
+
 - `/partner POST`
 
 Creates new partner in database.
@@ -49,17 +53,16 @@ Query:
 
 Finds a partner by its id.
 
-## 🚀 Getting Started
+## 🚀 Preparing to run application
 Follow the instructions to get a copy of this project in your local environment to develop and test.
 
-### 📋 Pre-requisites
+###  Pre-requisites
 To run the project you will need:
 - [Docker](https://docker.com) version 17 or higher
 - [docker-compose](https://github.com/docker/compose) version 1.10 or higher
 - [Node.js](https://nodejs.org) version 13.0 or higher
-- [MongoDB](https://www.mongodb.com/) version 4.2 or higher
 
-### 🔧 Installing Dependencies
+### Installing Dependencies
 Clone this repo:
 ```sh
 git clone https://github.com/me-marchi/ze-code-challenge-backend
@@ -75,7 +78,7 @@ Install projects dependencies:
 npm i
 ```
 
-### ⚙️ Environment
+### Environment
 Create a .env file and set your local environment variables:
 ```sh
 cp .env-example .env
@@ -86,13 +89,13 @@ Create docker container
 docker-compose up -d
 ```
 
-### 🎲 Database
+### Database
 To seed database:
 ```sh
-yarn database:seed
+npm run database:seed
 ```
 
-### 🔩 Test
+## 🔩 Test
 Create the file .env.test using.
 ```sh
 cp .env-example .env.test
