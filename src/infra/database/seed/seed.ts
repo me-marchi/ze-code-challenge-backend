@@ -1,5 +1,5 @@
-import { TypeOrmHelper } from '../typeORMHelper';
-import { PartnerEntity } from '../../entities/partnerEntity';
+import { TypeOrmHelper } from '../typeorm.helper';
+import { PartnerEntity } from '../../entities/partner.entity';
 import * as fs from 'fs';
 import path from 'path';
 import { config } from 'dotenv';

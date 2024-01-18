@@ -1,7 +1,7 @@
-import { IPartnerRepository } from '../../../domain/data/partnerRepository.protocols';
+import { IPartnerRepository } from '../../interfaces/repositories/partner-repository.interface';
 import { Partner } from '../../../domain/models/partner';
-import { PartnerServiceError } from '../PartnerServiceError';
-import { CreatePartnerUseCase } from './CreatePartnerUseCase';
+import { PartnerServiceError } from './partner.service-error';
+import { CreatePartnerUseCase } from './create-partner.usecase';
 
 const partnerDTO: Omit<Partner, 'id'> = {
     tradingName: 'Adega Osasco',

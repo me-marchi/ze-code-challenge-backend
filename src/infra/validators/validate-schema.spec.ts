@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { validateSchema } from './validateSchema';
+import { validateSchema } from './validate-schema';
 
 const mockSchema = Joi.object({
     anyAttribute: Joi.string().required()

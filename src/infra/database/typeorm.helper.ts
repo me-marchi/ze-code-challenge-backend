@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import { PartnerEntity } from '../../infra/entities/partnerEntity';
+import { PartnerEntity } from '../entities/partner.entity';
 
 export class TypeOrmHelper {
 
@@ -8,7 +8,7 @@ export class TypeOrmHelper {
 		try {
 			const dataSource = new DataSource({
 				type: 'postgres',
-				host: process.env.DB_HOST,
+				host: process.env.POSTGRES_HOST,
 				port: Number(process.env.DB_PORT),
 				username: process.env.DB_USERNAME,
 				password: process.env.DB_PASSWORD,

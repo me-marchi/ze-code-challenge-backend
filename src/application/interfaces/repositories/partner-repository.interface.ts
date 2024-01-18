@@ -1,4 +1,4 @@
-import { Partner } from '../models/partner';
+import { Partner } from '../../../domain/models/partner';
 
 export interface IPartnerRepository {
   create(partnerDTO: Partial<Partner>): Promise<Partner>;

@@ -1,8 +1,9 @@
-import { validateSchema } from '../../helpers/validateSchema';
-import { IPartnerRepository } from '../../../domain/data/partnerRepository.protocols';
+import { validateSchema } from '../../../infra/validators/validate-schema';
+import { IPartnerRepository } from '../../interfaces/repositories/partner-repository.interface';
 import { Partner } from '../../../domain/models/partner';
-import { CreatePartnerDTO } from '../../../domain/useCases/createPartner.protocols';
-import { PartnerServiceError } from '../PartnerServiceError';
+import { CreatePartnerDTO } from '../../interfaces/useCases/create-partner.interface';
+import { PartnerServiceError } from './partner.service-error';
+
 import Joi from 'joi';
 
 export class CreatePartnerUseCase {

@@ -1,7 +1,7 @@
 import { Partner } from '../../domain/models/partner';
-import { PartnerEntity } from '../entities/partnerEntity';
-import { IPartnerRepository } from '../../domain/data/partnerRepository.protocols';
-import { TypeOrmHelper } from '../database/typeORMHelper';
+import { PartnerEntity } from '../entities/partner.entity';
+import { IPartnerRepository } from '../../application/interfaces/repositories/partner-repository.interface';
+import { TypeOrmHelper } from '../database/typeorm.helper';
 
 export class PartnerRepository implements IPartnerRepository {
 

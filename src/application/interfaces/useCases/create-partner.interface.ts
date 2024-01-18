@@ -1,4 +1,4 @@
-import { Partner } from '../models/partner';
+import { Partner } from '../../../domain/models/partner';
 
 export type CreatePartnerDTO = Partial<
   Omit<Partner, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>

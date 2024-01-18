@@ -1,7 +1,7 @@
 import { config } from 'dotenv';
 config();
 import express from 'express';
-import { userRouter } from './routes/partnerRouter';
+import { userRouter } from './routes/partner.router';
 
 const app = express();
 app.use(express.json());

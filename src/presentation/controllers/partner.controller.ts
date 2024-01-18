@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { createPartnerFactory } from '../../services/user/createPartnerUseCase/createPartnerFactory';
-import { findNearestPartnerFactory } from '../../services/user/findNearestPartnerUseCase/findNearestPartnerFactory';
-import { findByPartnerIdFactory } from '../../services/user/findByPartnerIdUseCase/findByPartnerIdFactory';
-import { StatusError } from '../errors/statusError';
+import { createPartnerFactory } from '../../main/factories/useCases/partner/create-partner.factory';
+import { findNearestPartnerFactory } from '../../main/factories/useCases/partner/find-nearest-partner.factory';
+import { findByPartnerIdFactory } from '../../main/factories/useCases/partner/find-by-partner-id.factory';
+import { StatusError } from '../errors/status-error';
 
 export class PartnerController {
   static async create(request: Request, response: Response): Promise<Response> {

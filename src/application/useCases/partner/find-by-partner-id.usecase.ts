@@ -1,6 +1,6 @@
-import { IPartnerRepository } from '../../../domain/data/partnerRepository.protocols';
+import { IPartnerRepository } from '../../interfaces/repositories/partner-repository.interface';
 import { Partner } from '../../../domain/models/partner';
-import { PartnerServiceError } from '../PartnerServiceError';
+import { PartnerServiceError } from './partner.service-error';
 
 export class FindByPartnerIdUseCase {
   constructor(
