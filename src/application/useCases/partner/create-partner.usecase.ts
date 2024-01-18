@@ -1,33 +1,21 @@
-import { validateSchema } from '../../../infra/validators/validate-schema';
+import { validateSchema } from '../../../infra/validator/validate-schema';
 import { IPartnerRepository } from '../../interfaces/repositories/partner-repository.interface';
 import { Partner } from '../../../domain/models/partner';
-import { CreatePartnerDTO } from '../../interfaces/useCases/create-partner.interface';
+import { CreatePartnerDTO, ICreatePartnerUseCase } from '../../interfaces/useCases/create-partner.interface';
 import { PartnerServiceError } from './partner.service-error';
+import { SchemaValidator } from '../../../adapters/validation/schema-validator.interface';
 
 import Joi from 'joi';
 
-export class CreatePartnerUseCase {
+export class CreatePartnerUseCase implements ICreatePartnerUseCase {
     constructor(
-        private readonly userRepository: Pick<IPartnerRepository, 'create'>
+        private readonly userRepository: Pick<IPartnerRepository, 'create'>,
+        private readonly schemaValidator: SchemaValidator
     ) {}
 
-    async create(userDTO: CreatePartnerDTO): Promise<Partner> {
+    async execute(userDTO: CreatePartnerDTO): Promise<Partner> {
 
-        const partnerSchema = Joi.object({
-            tradingName: Joi.string().required(),
-            ownerName: Joi.string().required(),
-            document: Joi.string().required(),
-            coverageArea: Joi.object({
-                type: Joi.string().required(),
-                coordinates: Joi.array().required()
-            }).required(),
-            address: Joi.object({
-                type: Joi.string().required(),
-                coordinates: Joi.array().required()
-            }).required()
-        });
-
-        validateSchema(partnerSchema, userDTO);
+        this.schemaValidator.validate('createPartner', userDTO)
 
         const createdPartner = await this.userRepository.create({ ...userDTO }).catch(() => {
             throw new Error(PartnerServiceError.NOT_CREATED);
@@ -35,4 +23,5 @@ export class CreatePartnerUseCase {
 
         return createdPartner;
     }
+
 }

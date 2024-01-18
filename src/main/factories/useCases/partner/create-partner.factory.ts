@@ -1,9 +1,11 @@
 import { PartnerRepository } from '../../../../infra/repositories/partner.repository';
-import { CreatePartner } from '../../../../application/interfaces/useCases/create-partner.interface';
+import { ICreatePartnerUseCase } from '../../../../application/interfaces/useCases/create-partner.interface';
 import { CreatePartnerUseCase } from '../../../../application/useCases/partner/create-partner.usecase';
+import { JoiSchemaValidatorAdapter } from '../../../../infra/validator/joi-validator.adapter';
 
-export function createPartnerFactory(): CreatePartner {
-  const userRepository = new PartnerRepository();
+export function createPartnerFactory(): ICreatePartnerUseCase {
+  const partnerRepository = new PartnerRepository();
+  const schemaValidator = new JoiSchemaValidatorAdapter()
 
-  return new CreatePartnerUseCase(userRepository);
+  return new CreatePartnerUseCase(partnerRepository, schemaValidator);
 }
